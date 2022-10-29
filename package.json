@@ -1,0 +1,29 @@
+{
+    "name": "common-infra-jenkins",
+    "version": "0.3.0",
+    "description": "Jenkins Config",
+    "main": "index.js",
+    "scripts": {
+        "test": "docker build -t test .",
+        "prepare": "husky install",
+        "commitlint": "commitlint"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/devhalos/common-infra-jenkins.git"
+    },
+    "keywords": [
+        "jenkins"
+    ],
+    "author": "jayson ojeda",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/devhalos/common-infra-jenkins/issues"
+    },
+    "homepage": "https://github.com/devhalos/common-infra-jenkins#readme",
+    "devDependencies": {
+        "@commitlint/cli": "^15.0.0",
+        "@commitlint/config-conventional": "^15.0.0",
+        "husky": "^7.0.4"
+    }
+}
