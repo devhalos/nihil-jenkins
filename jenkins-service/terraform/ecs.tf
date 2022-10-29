@@ -53,7 +53,7 @@ resource "aws_ecs_task_definition" "jenkins" {
         },
         {
           name  = "JENKINS_ECS_ASSUMED_ROLE",
-          value = aws_iam_role.jenkins_agent.name
+          value = aws_iam_role.jenkins_task.name
         },
         {
           name  = "JENKINS_ECS_AGENT_NAME",
@@ -101,11 +101,11 @@ resource "aws_ecs_task_definition" "jenkins" {
         },
         {
           name  = "JENKINS_ECS_CPU",
-          value = tostring(var.cpu_unit)
+          value = tostring(var.agent_cpu_unit)
         },
         {
           name  = "JENKINS_ECS_MEMORY_RESERVATION",
-          value = tostring(var.memory_unit)
+          value = tostring(var.agent_memory_unit)
         },
         {
           name  = "AWS_ACCESS_KEY_ID",

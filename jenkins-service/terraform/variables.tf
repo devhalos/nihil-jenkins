@@ -54,10 +54,20 @@ variable "admin_email" {
 
 variable "cpu_unit" {
   type    = number
-  default = 1024
+  default = 2048
 }
 
 variable "memory_unit" {
+  type    = number
+  default = 4096
+}
+
+variable "agent_cpu_unit" {
+  type    = number
+  default = 1024
+}
+
+variable "agent_memory_unit" {
   type    = number
   default = 2048
 }

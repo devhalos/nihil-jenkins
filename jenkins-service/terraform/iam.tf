@@ -79,6 +79,29 @@ resource "aws_iam_role" "jenkins_task_execution" {
   assume_role_policy = data.aws_iam_policy_document.jenkins_task_trust_relationship.json
 }
 
+resource "aws_iam_user" "jenkins_agent" {
+  name = "${local.component_name}-agent"
+}
+
+resource "aws_iam_access_key" "jenkins_agent" {
+  user = aws_iam_user.jenkins_agent.name
+}
+
+
+data "aws_iam_policy_document" "jenkins_agent_trust_relationship" {
+  statement {
+    principals {
+      type = "AWS"
+      identifiers = [
+        aws_iam_user.jenkins_agent.arn
+      ]
+    }
+    actions = [
+      "sts:AssumeRole"
+    ]
+  }
+}
+
 data "aws_iam_policy_document" "jenkins_agent" {
   statement {
     sid = "EcsAll"
@@ -149,13 +172,5 @@ resource "aws_iam_role" "jenkins_agent" {
   managed_policy_arns = [
     aws_iam_policy.jenkins_agent.arn
   ]
-  assume_role_policy = data.aws_iam_policy_document.jenkins_task_trust_relationship.json
-}
-
-resource "aws_iam_user" "jenkins_agent" {
-  name = "${local.component_name}-agent"
-}
-
-resource "aws_iam_access_key" "jenkins_agent" {
-  user = aws_iam_user.jenkins_agent.name
+  assume_role_policy = data.aws_iam_policy_document.jenkins_agent_trust_relationship.json
 }
