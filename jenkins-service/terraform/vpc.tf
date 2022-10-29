@@ -148,8 +148,8 @@ resource "aws_security_group" "ecs" {
   }
 
   ingress {
-    from_port   = 50000
-    to_port     = 50000
+    from_port   = local.jenkins_tunnel_port
+    to_port     = local.jenkins_tunnel_port
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }

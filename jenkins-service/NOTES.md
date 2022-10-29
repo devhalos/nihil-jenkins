@@ -141,8 +141,6 @@ Create service with dns configuration:
   - A record with TTL=<10 or any value>
   - SRV record with port=50000 and TTL=<10 or any value>
 
-The DNS can be use as the value for the ecs task tunnel in jenkins cloud ecs configuration with the ff. format: <namespace-name>.<service-name>:50000
-
 <br/>
 
 ### ECR
@@ -316,3 +314,5 @@ It will be used as environment variables AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS
   - name: the load balancer created earlier
   - target group: the target group created earlier
 - Force New Deployment
+- Service Discovery
+  - Port: 50000

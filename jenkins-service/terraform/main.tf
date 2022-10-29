@@ -30,7 +30,8 @@ locals {
 
   service_discovery_namespace_name = local.component_name
   service_discovery_service_name   = var.component
-  jenkins_ecs_tunnel               = "${local.service_discovery_namespace_name}.${local.service_discovery_service_name}:50000"
+  jenkins_tunnel_port              = 50000
+  jenkins_ecs_tunnel               = "${local.service_discovery_service_name}.${local.service_discovery_namespace_name}:${local.jenkins_tunnel_port}"
   docker_registry                  = "${var.aws_account}.dkr.ecr.${var.aws_region}.amazonaws.com"
   default_docker_image             = "${var.organization}-${var.project}-${terraform.workspace}-jenkins-app"
   docker_image_name                = coalesce(var.docker_image_name, local.default_docker_image)

@@ -125,7 +125,7 @@ data "aws_iam_policy_document" "jenkins_agent" {
     ]
     resources = [
       "arn:aws:ecs:${var.aws_region}:${var.aws_account}:task/*/*",
-      "arn:aws:ecs:${var.aws_region}:${var.aws_account}:task-definition/"
+      "arn:aws:ecs:${var.aws_region}:${var.aws_account}:task-definition/*:*"
     ]
   }
 

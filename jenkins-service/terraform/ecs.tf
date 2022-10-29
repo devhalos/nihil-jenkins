@@ -52,8 +52,8 @@ resource "aws_ecs_task_definition" "jenkins" {
           value = "http://${aws_lb.jenkins.dns_name}"
         },
         {
-          name  = "JENKINS_ECS_ASSUMED_ROLE",
-          value = aws_iam_role.jenkins_task.name
+          name  = "JENKINS_ECS_ASSUMED_ROLE_ARN",
+          value = aws_iam_role.jenkins_agent.arn
         },
         {
           name  = "JENKINS_ECS_AGENT_NAME",
@@ -156,6 +156,11 @@ resource "aws_ecs_service" "jenkins" {
   deployment_maximum_percent         = 100
   health_check_grace_period_seconds  = 300
   force_new_deployment               = true
+
+  service_registries {
+    registry_arn = aws_service_discovery_service.jenkins.arn
+    port         = local.jenkins_tunnel_port
+  }
 
   network_configuration {
     assign_public_ip = true
