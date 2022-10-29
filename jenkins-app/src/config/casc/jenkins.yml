@@ -5,7 +5,7 @@ jenkins:
   clouds:
     - ecs:
         credentialsId: ""
-        assumedRoleArn: "${JENKINS_ECS_ASSUMED_ROLE}"
+        assumedRoleArn: "${JENKINS_ECS_ASSUMED_ROLE_ARN}"
         allowedOverrides: "inheritFrom,label"
         cluster: "${JENKINS_ECS_CLUSTER_NAME_ARN}"
         jenkinsUrl: "${JENKINS_URL}"
