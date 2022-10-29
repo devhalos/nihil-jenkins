@@ -1,0 +1,13 @@
+unclassified:
+  location:
+    adminAddress: "${ADMIN_EMAIL_ADDRESS}"
+    url: "${JENKINS_URL}"
+  gitHubPluginConfig:
+    configs:
+      - credentialsId: "github-token"
+        name: "github"
+    hookUrl: "${JENKINS_URL}/github-webhook/"
+  # simple-theme-plugin:
+  #   elements:
+  #     - cssUrl:
+  #         url: "/userContent/themes/material-blue.css"

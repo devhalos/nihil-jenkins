@@ -1,0 +1,40 @@
+jenkins:
+  systemMessage: "Jenkins - Nihil"
+  numExecutors: 0
+  mode: NORMAL
+  clouds:
+    - ecs:
+        credentialsId: ""
+        assumedRoleArn: "${JENKINS_ECS_ASSUMED_ROLE}"
+        allowedOverrides: "inheritFrom,label"
+        cluster: "${JENKINS_ECS_CLUSTER_NAME_ARN}"
+        jenkinsUrl: "${JENKINS_URL}"
+        tunnel: "${JENKINS_ECS_TUNNEL}"
+        name: "${JENKINS_ECS_AGENT_NAME}"
+        regionName: "${JENKINS_ECS_CLUSTER_REGION}"
+        templates:
+          - assignPublicIp: false
+            cpu: "${JENKINS_ECS_CPU}"
+            executionRole: "${JENKINS_ECS_TASK_EXECUTION_ROLE}"
+            image: "${JENKINS_ECS_IMAGE}"
+            label: "${JENKINS_ECS_AGENT_NAME}"
+            launchType: "FARGATE"
+            logDriver: "awslogs"
+            logDriverOptions:
+              - name: "awslogs-group"
+                value: "${JENKINS_ECS_AWSLOGS_GROUP}"
+              - name: "awslogs-region"
+                value: "${JENKINS_ECS_AWSLOGS_REGION}"
+              - name: "awslogs-stream-prefix"
+                value: "${JENKINS_ECS_AWSLOGS_STREAM_PREFIX}"
+            memory: 0
+            memoryReservation: "${JENKINS_ECS_MEMORY_RESERVATION}"
+            networkMode: "awsvpc"
+            platformVersion: "LATEST"
+            privileged: false
+            remoteFSRoot: "/home/jenkins"
+            securityGroups: "${JENKINS_ECS_SECURITY_GROUPS}"
+            sharedMemorySize: 0
+            subnets: "${JENKINS_ECS_SUBNETS}"
+            templateName: "${JENKINS_ECS_AGENT_NAME}"
+            uniqueRemoteFSRoot: false
