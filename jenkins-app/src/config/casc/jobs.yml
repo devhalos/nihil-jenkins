@@ -1,0 +1,78 @@
+jobs:
+  - script: |
+      organizationFolder('github-org-pipelines') {
+          displayName('github-org-pipelines')
+          description('Github Organization Pipelines')
+          organizations {
+              github {
+                  repoOwner('devhalos')
+                  apiUri('https://api.github.com')
+                  credentialsId('github-credentials-token')
+                  traits {
+                      gitBranchDiscovery()
+                      gitHubTagDiscovery()
+                      gitHubBranchDiscovery {
+                          strategyId(1)
+                      }
+                      gitHubPullRequestDiscovery {
+                          strategyId(1)
+                      }
+                  }
+              }
+          }
+          properties {
+              organizationChildHealthMetricsProperty {
+                  templates {
+                      worstChildHealthMetric {
+                          recursive(true)
+                      }
+                  }
+              }
+              organizationChildOrphanedItemsProperty {
+                  strategy {
+                      inherit()
+                  }
+              }
+              noTriggerOrganizationFolderProperty {
+                  branches('.*')
+              }
+          }
+          orphanedItemStrategy {
+              defaultOrphanedItemStrategy {
+                  pruneDeadBranches(true)
+                  daysToKeepStr('30')
+                  numToKeepStr('20')
+              }
+          }
+          triggers {
+              periodicFolderTrigger {
+                  interval('5m')
+              }
+          }
+          projectFactories {
+              workflowMultiBranchProjectFactory {
+                  scriptPath('Jenkinsfile')
+              }
+          }
+          buildStrategies {}
+          configure { node ->
+              def traits = node / navigators / 'org.jenkinsci.plugins.github__branch__source.GitHubSCMNavigator' / traits
+
+              traits << 'org.jenkinsci.plugins.github__branch__source.ForkPullRequestDiscoveryTrait' {
+                  strategyId('1')
+                  trustID('1')
+              }
+
+              def templates = node / 'properties' / 'jenkins.branch.OrganizationChildTriggersProperty' / templates
+
+              templates << 'com.cloudbees.hudson.plugins.folder.computed.PeriodicFolderTrigger' {
+                  spec('* * * * *')
+                  interval(300000)
+              }
+
+              node / triggers / 'com.cloudbees.hudson.plugins.folder.computed.PeriodicFolderTrigger' {
+                  spec('* * * * *')
+                  interval(300000)
+              }
+          }
+      }
