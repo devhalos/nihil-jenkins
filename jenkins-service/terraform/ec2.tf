@@ -11,7 +11,7 @@ resource "aws_lb" "jenkins" {
 resource "aws_lb_target_group" "jenkins" {
   name        = local.component_name
   vpc_id      = aws_vpc.jenkins.id
-  port        = 8080
+  port        = local.jenkins_port
   protocol    = "HTTP"
   target_type = "ip"
 

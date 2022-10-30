@@ -20,8 +20,8 @@ resource "aws_ecs_task_definition" "jenkins" {
       essential = true
       portMappings = [
         {
-          containerPort = 8080
-          hostPort      = 8080
+          containerPort = local.jenkins_port
+          hostPort      = local.jenkins_port
         }
       ]
       mountPoints = [
@@ -173,6 +173,6 @@ resource "aws_ecs_service" "jenkins" {
   load_balancer {
     target_group_arn = aws_lb_target_group.jenkins.arn
     container_name   = local.component_name
-    container_port   = 8080
+    container_port   = local.jenkins_port
   }
 }

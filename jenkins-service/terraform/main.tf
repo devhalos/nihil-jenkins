@@ -30,6 +30,7 @@ locals {
 
   service_discovery_namespace_name = local.component_name
   service_discovery_service_name   = var.component
+  jenkins_port                     = 8080
   jenkins_tunnel_port              = 50000
   jenkins_ecs_tunnel               = "${local.service_discovery_service_name}.${local.service_discovery_namespace_name}:${local.jenkins_tunnel_port}"
   docker_registry                  = "${var.aws_account}.dkr.ecr.${var.aws_region}.amazonaws.com"
