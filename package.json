@@ -1,6 +1,6 @@
 {
     "name": "common-infra-jenkins",
-    "version": "0.3.0",
+    "version": "1.0.0",
     "description": "Jenkins Config",
     "main": "index.js",
     "scripts": {
