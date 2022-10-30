@@ -61,7 +61,7 @@ resource "aws_ecs_task_definition" "jenkins" {
         },
         {
           name  = "JENKINS_ECS_IMAGE",
-          value = "jenkins/inbound-agent:latest"
+          value = "jenkins/inbound-agent:alpine"
         },
         {
           name  = "JENKINS_ECS_TUNNEL",
