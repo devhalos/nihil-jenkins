@@ -154,7 +154,7 @@ jobs:
           docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
 
   build-jenkins-service-infra-dev:
-    needs: lint-infra
+    needs: build-publish-jenkins-app-dev
     runs-on: ubuntu-latest
     permissions:
       id-token: write
@@ -199,7 +199,7 @@ jobs:
           path: jenkins-service/terraform/local.tfplan
 
   deploy-jenkins-service-infra-dev:
-    # if: contains(github.ref, 'refs/heads/main') || contains(github.ref, 'refs/tags')
+    if: contains(github.ref, 'refs/heads/main') || contains(github.ref, 'refs/tags')
     needs: build-jenkins-service-infra-dev
     environment: dev
     runs-on: ubuntu-latest
