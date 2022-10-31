@@ -40,6 +40,25 @@ jobs:
       - name: 'tf: format'
         run: terraform fmt -check -recursive
 
+  scan-infra:
+    needs: audit
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - name: 'checkout'
+        uses: actions/checkout@v3
+
+      - name: 'snyk: setup'
+        uses: snyk/actions/setup@master
+
+      - name: Snyk monitor 
+        run: snyk iac test
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+
   build-jenkins-app-infra-dev:
     needs: lint-infra
     runs-on: ubuntu-latest
