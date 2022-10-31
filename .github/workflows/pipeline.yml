@@ -18,7 +18,6 @@ jobs:
         run: npm audit
 
   lint-infra:
-    needs: audit
     runs-on: ubuntu-latest
     permissions:
       id-token: write
@@ -41,7 +40,6 @@ jobs:
         run: terraform fmt -check -recursive
 
   scan-infra:
-    needs: audit
     runs-on: ubuntu-latest
     permissions:
       id-token: write
@@ -60,7 +58,10 @@ jobs:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
   build-jenkins-app-infra-dev:
-    needs: lint-infra
+    needs: 
+      - audit
+      - lint-infra
+      - scan-infra
     runs-on: ubuntu-latest
     permissions:
       id-token: write
@@ -259,7 +260,7 @@ jobs:
 
   create-release:
     if: contains(github.ref, 'refs/heads/main')
-    needs: build-publish-jenkins-app-dev
+    needs: deploy-jenkins-service-infra-dev
 
     name: 'create-release'
     runs-on: ubuntu-latest 
