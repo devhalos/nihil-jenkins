@@ -14,7 +14,7 @@ resource "aws_ecs_task_definition" "jenkins" {
   container_definitions = jsonencode([
     {
       name      = local.component_name
-      image     = local.docker_image_full
+      image     = local.app_image_full
       cpu       = var.cpu_unit
       memory    = var.memory_unit
       essential = true
@@ -49,7 +49,7 @@ resource "aws_ecs_task_definition" "jenkins" {
         },
         {
           name  = "JENKINS_URL",
-          value = "http://${aws_lb.jenkins.dns_name}"
+          value = "http://${var.domain_name}"
         },
         {
           name  = "JENKINS_ECS_ASSUMED_ROLE_ARN",
