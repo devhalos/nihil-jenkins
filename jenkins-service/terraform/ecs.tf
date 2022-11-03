@@ -49,7 +49,7 @@ resource "aws_ecs_task_definition" "jenkins" {
         },
         {
           name  = "JENKINS_URL",
-          value = "http://${var.domain_name}"
+          value = "https://${var.domain_name}"
         },
         {
           name  = "JENKINS_ECS_ASSUMED_ROLE_ARN",
