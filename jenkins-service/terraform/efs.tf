@@ -1,6 +1,6 @@
 resource "aws_efs_file_system" "jenkins" {
   creation_token = local.component_name
-  encrypted = true
+  encrypted      = true
 
   lifecycle_policy {
     transition_to_ia = "AFTER_7_DAYS"
