@@ -1,0 +1,6 @@
+
+version: v1.22.1
+ignore:
+  'SNYK-CC-TF-1':
+    'jenkins-service/terraform/vpc.tf > *':
+      reason: 'Allow traffic from third-party apis'
