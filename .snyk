@@ -1,6 +1,10 @@
-
-version: v1.22.1
-ignore:
-  'SNYK-CC-TF-1':
-    'jenkins-service/terraform/vpc.tf > *':
-      reason: 'Allow traffic from third-party apis'
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.25.0
+ignore: 
+  'SNYK-CC-TF-47':
+    - 'jenkins-service/terraform/ec2.tf > *':
+        reason: Need to add certificate first
+patch: {}
+exclude:
+  global:
+    - ./.history/**
