@@ -64,34 +64,20 @@ Create one for each private subnet. Route 0.0.0.0/0 to the NAT gateway created i
 ### Create Security Groups
 
 - One for the load balancer
-    - with inbound 80 and 8080 to 0.0.0.0/0
+    - with inbound 443 to 0.0.0.0/0
 - One for the ecs tasks
     - with inbound 8080 and 50000 to 0.0.0.0/0
 - One for the efs
     - with inbound 2049 to sg group created for ecs tasks
-- One for ecr endpoints
-    - with inbound 443 to 0.0.0.0/0
-- One for logs endpoints
-    - with inbound 443 to 0.0.0.0/0
 
 <br/>
 
-### Create Endpoints
-
-Endpoints are needed to access aws resources from private subnets without exposing them to the internet
-
-- s3 - gateway => connect to routing table for private subnets
-- ecr - api => connect to private subnets and assign ecr security groups
-- ecr - dkr => connect to private subnets and assign ecr security groups
-- cloudwatch - logs => connect to private subnets and assign cloudwatch security groups
-
-<br/>
     
 ### Create Load Balancer
 
 Create an ALB to for the jenkins dashboard. The DNS name can also be use as jenkins url. It should be in all public subnets created
 
-Add listeners for port 80
+Add listeners for port 443
 
 <br/>
 
