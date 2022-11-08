@@ -1,5 +1,10 @@
 resource "aws_ecs_cluster" "jenkins" {
   name = local.component_name
+
+  setting {
+    name  = "containerInsights"
+    value = "enabled"
+  }
 }
 
 resource "aws_ecs_task_definition" "jenkins" {

@@ -4,6 +4,9 @@ ignore:
   'SNYK-CC-TF-1':
     - 'jenkins-service/terraform/vpc.tf > *':
         reason: Need to allow traffic from third-party apis
+  'SNYK-CC-TF-126':
+    - 'jenkins-app/terraform/ecr.tf > *':
+        reason: Allow mutable 
 patch: {}
 exclude:
   global:
