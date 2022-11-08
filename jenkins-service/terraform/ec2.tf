@@ -1,17 +1,19 @@
 resource "aws_lb" "jenkins" {
-  name               = local.component_name
-  internal           = false
-  load_balancer_type = "application"
+  name                       = local.component_name
+  load_balancer_type         = "application"
+  subnets                    = [for subnet in aws_subnet.jenkins_pub : subnet.id]
+  internal                   = false
+  drop_invalid_header_fields = true
+
   security_groups = [
     aws_security_group.alb.id
   ]
-  subnets = [for subnet in aws_subnet.jenkins_pub : subnet.id]
 }
 
 resource "aws_lb_target_group" "jenkins" {
   name        = local.component_name
   vpc_id      = aws_vpc.jenkins.id
-  port        = local.jenkins_port
+  port        = local.port
   protocol    = "HTTP"
   target_type = "ip"
 

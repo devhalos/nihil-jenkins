@@ -25,8 +25,8 @@ resource "aws_ecs_task_definition" "jenkins" {
       essential = true
       portMappings = [
         {
-          containerPort = local.jenkins_port
-          hostPort      = local.jenkins_port
+          containerPort = local.port
+          hostPort      = local.port
         }
       ]
       mountPoints = [
@@ -70,7 +70,7 @@ resource "aws_ecs_task_definition" "jenkins" {
         },
         {
           name  = "JENKINS_ECS_TUNNEL",
-          value = local.jenkins_ecs_tunnel
+          value = local.ecs_tunnel
         },
         {
           name  = "JENKINS_ECS_TASK_EXECUTION_ROLE",
@@ -164,7 +164,7 @@ resource "aws_ecs_service" "jenkins" {
 
   service_registries {
     registry_arn = aws_service_discovery_service.jenkins.arn
-    port         = local.jenkins_tunnel_port
+    port         = local.tunnel_port
   }
 
   network_configuration {
@@ -178,6 +178,6 @@ resource "aws_ecs_service" "jenkins" {
   load_balancer {
     target_group_arn = aws_lb_target_group.jenkins.arn
     container_name   = local.component_name
-    container_port   = local.jenkins_port
+    container_port   = local.port
   }
 }

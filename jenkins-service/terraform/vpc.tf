@@ -141,15 +141,15 @@ resource "aws_security_group" "ecs" {
   vpc_id      = aws_vpc.jenkins.id
 
   ingress {
-    from_port   = local.jenkins_port
-    to_port     = local.jenkins_port
+    from_port   = local.port
+    to_port     = local.port
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
 
   ingress {
-    from_port   = local.jenkins_tunnel_port
-    to_port     = local.jenkins_tunnel_port
+    from_port   = local.tunnel_port
+    to_port     = local.tunnel_port
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }

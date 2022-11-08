@@ -30,9 +30,10 @@ locals {
 
   service_discovery_namespace_name = local.component_name
   service_discovery_service_name   = var.component
-  jenkins_port                     = 8080
-  jenkins_tunnel_port              = 50000
-  jenkins_ecs_tunnel               = "${local.service_discovery_service_name}.${local.service_discovery_namespace_name}:${local.jenkins_tunnel_port}"
+  port                             = 8080
+  tunnel_port                      = 50000
+  ecs_tunnel                       = "${local.service_discovery_service_name}.${local.service_discovery_namespace_name}:${local.tunnel_port}"
+  log_group_name                   = local.component_name
   app_registry                     = "${var.aws_account}.dkr.ecr.${var.aws_region}.amazonaws.com"
   app_image_name                   = coalesce(var.app_image_name, "${var.project}-${terraform.workspace}-jenkins-app")
   app_image_tag                    = coalesce(var.app_image_tag, terraform.workspace)
