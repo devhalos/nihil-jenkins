@@ -139,6 +139,8 @@ jobs:
           TF_VAR_admin_email: ${{ secrets.JENKINS_ADMIN_EMAIL }}
           TF_VAR_github_token: ${{ secrets.JENKINS_GITHUB_TOKEN }}
           TF_VAR_github_username: ${{ secrets.JENKINS_GITHUB_USERNAME }}
+          TF_VAR_main_domain_name: devhalos.com
+          TF_VAR_domain_name: jenkins.devhalos.com
 
       - name: 'upload artifact: terraform plan output'
         uses: actions/upload-artifact@v2
