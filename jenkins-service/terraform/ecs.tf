@@ -1,5 +1,10 @@
 resource "aws_ecs_cluster" "jenkins" {
   name = local.component_name
+
+  setting {
+    name  = "containerInsights"
+    value = "enabled"
+  }
 }
 
 resource "aws_ecs_task_definition" "jenkins" {
@@ -14,14 +19,14 @@ resource "aws_ecs_task_definition" "jenkins" {
   container_definitions = jsonencode([
     {
       name      = local.component_name
-      image     = local.docker_image_full
+      image     = local.app_image_full
       cpu       = var.cpu_unit
       memory    = var.memory_unit
       essential = true
       portMappings = [
         {
-          containerPort = local.jenkins_port
-          hostPort      = local.jenkins_port
+          containerPort = local.port
+          hostPort      = local.port
         }
       ]
       mountPoints = [
@@ -49,7 +54,7 @@ resource "aws_ecs_task_definition" "jenkins" {
         },
         {
           name  = "JENKINS_URL",
-          value = "http://${aws_lb.jenkins.dns_name}"
+          value = "https://${var.domain_name}"
         },
         {
           name  = "JENKINS_ECS_ASSUMED_ROLE_ARN",
@@ -65,7 +70,7 @@ resource "aws_ecs_task_definition" "jenkins" {
         },
         {
           name  = "JENKINS_ECS_TUNNEL",
-          value = local.jenkins_ecs_tunnel
+          value = local.ecs_tunnel
         },
         {
           name  = "JENKINS_ECS_TASK_EXECUTION_ROLE",
@@ -159,7 +164,7 @@ resource "aws_ecs_service" "jenkins" {
 
   service_registries {
     registry_arn = aws_service_discovery_service.jenkins.arn
-    port         = local.jenkins_tunnel_port
+    port         = local.tunnel_port
   }
 
   network_configuration {
@@ -173,6 +178,6 @@ resource "aws_ecs_service" "jenkins" {
   load_balancer {
     target_group_arn = aws_lb_target_group.jenkins.arn
     container_name   = local.component_name
-    container_port   = local.jenkins_port
+    container_port   = local.port
   }
 }

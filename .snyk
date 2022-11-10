@@ -1,0 +1,19 @@
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.25.0
+ignore: 
+  'SNYK-CC-TF-1':
+    - 'jenkins-service/terraform/vpc.tf > *':
+        reason: Need to allow traffic from third-party apis
+  'SNYK-CC-TF-48':
+    - 'jenkins-service/terraform/ec2.tf > *':
+        reason: LB is used for jenkins web app
+  'SNYK-CC-TF-73':
+    - 'jenkins-service/terraform/vpc.tf > *':
+        reason: Ignore egress issue for now, need to verify later
+  'SNYK-CC-TF-126':
+    - 'jenkins-app/terraform/ecr.tf > *':
+        reason: Allow mutable 
+patch: {}
+exclude:
+  global:
+    - ./.history/**

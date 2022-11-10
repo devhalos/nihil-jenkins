@@ -14,60 +14,83 @@ variable "component" {
 }
 
 variable "aws_region" {
-  type    = string
-  default = "ap-southeast-1"
+  type        = string
+  description = "region where to deploy jenkins service"
+  default     = "ap-southeast-1"
 }
 
 variable "aws_account" {
-  type = string
+  type        = string
+  description = "account where to deploy jenkins service"
 }
 
-variable "docker_image_name" {
-  type    = string
-  default = null
+variable "app_image_name" {
+  type        = string
+  description = "container image name of jenkins app"
+  default     = null
 }
 
-variable "docker_image_tag" {
-  type    = string
-  default = null
+variable "app_image_tag" {
+  type        = string
+  description = "container image tag of jenkins app"
+  default     = null
 }
 
 variable "admin_username" {
-  type = string
+  type        = string
+  description = "dashboard admin username"
 }
 
 variable "admin_password" {
-  type = string
-}
-
-variable "github_username" {
-  type = string
-}
-
-variable "github_token" {
-  type = string
+  type        = string
+  description = "dashboard admin password"
 }
 
 variable "admin_email" {
-  type = string
+  type        = string
+  description = "email address of the dashboard admin account"
+}
+
+variable "github_username" {
+  type        = string
+  description = "username of the admin of github organization defined in the jenkins job dsl"
+}
+
+variable "github_token" {
+  type        = string
+  description = "token of the admin of github organization defined in the jenkins job dsl"
 }
 
 variable "cpu_unit" {
-  type    = number
-  default = 2048
+  type        = number
+  description = "the cpu unit of the jenkins controller"
+  default     = 2048
 }
 
 variable "memory_unit" {
-  type    = number
-  default = 4096
+  type        = number
+  description = "the memory unit of the jenkins controller"
+  default     = 4096
 }
 
 variable "agent_cpu_unit" {
-  type    = number
-  default = 1024
+  type        = number
+  description = "the cpu unit of the jenkins ecs agent"
+  default     = 1024
 }
 
 variable "agent_memory_unit" {
-  type    = number
-  default = 2048
+  type        = number
+  description = "the memory unit of the jenkins ecs agent"
+  default     = 2048
+}
+
+variable "main_domain_name" {
+  type        = string
+  description = "main domain name"
+}
+
+variable "domain_name" {
+  type        = string
+  description = "sub domain name for jenkins service"
 }
