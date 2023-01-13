@@ -1,6 +1,7 @@
 resource "aws_ecr_repository" "jenkins" {
   name                 = local.component_name
-  image_tag_mutability = "MUTABLE"
+  image_tag_mutability = var.image_tag_mutability
+  force_delete         = var.force_delete_repository
 
   image_scanning_configuration {
     scan_on_push = true
